@@ -9,6 +9,9 @@ class HomePage:
     def __init__(self, page: Page):
         self.page = page
 
+        self.contact_tab_locator = page.get_by_role("link", name="Contact")
+        self.shop_tab_locator = page.get_by_role("link", name="Shop")
+
     def navigate_to_home_page(self) -> None:
         """Navigate to the homepage."""
         self.page.goto("/")
@@ -16,3 +19,13 @@ class HomePage:
     def get_page_title(self) -> str:
         """Get the title of the current page."""
         return self.page.title()
+
+    def navigate_to_tab(self, tab_name: str) -> None:
+        """Navigate to a specific tab on the homepage."""
+        match tab_name:
+            case "Contact":
+                self.contact_tab_locator.click()
+            case "Shop":
+                self.shop_tab_locator.click()
+            case _:
+                raise ValueError(f"Unknown tab name: {tab_name}")

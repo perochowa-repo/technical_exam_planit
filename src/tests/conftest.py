@@ -12,6 +12,13 @@ from src.util.service_factory import ServiceFactory
 
 
 @pytest.fixture
+def data_cache() -> dict[str, Any]:
+    """Provide a data cache for tests."""
+    variables: dict[str, Any] = {}
+    return variables
+
+
+@pytest.fixture
 def test_logger() -> Logger:
     """Provide a logger instance for tests."""
     return logging.getLogger("tests")
@@ -20,7 +27,7 @@ def test_logger() -> Logger:
 @pytest.fixture
 def service_factory(
     page: Page,
-    logger: Logger,
+    test_logger: Logger,
 ) -> Generator[ServiceFactory, Any, None]:
     """Provide a ServiceFactory instance for tests."""
-    yield ServiceFactory(page, logger)
+    yield ServiceFactory(page, test_logger)
