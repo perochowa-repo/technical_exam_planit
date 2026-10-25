@@ -12,6 +12,7 @@ class HomePageTabs(Enum):
     HOME = "Home"
     CONTACT = "Contact"
     SHOP = "Shop"
+    CART = "Cart"
 
 
 class HomeService:
