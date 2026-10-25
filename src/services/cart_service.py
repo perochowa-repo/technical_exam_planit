@@ -27,16 +27,9 @@ class CartService:
         for _ in range(quantity):
             previous_count = self.get_cart_count()
             expected_count = previous_count + 1
-
             buy_button.click()
-
             expect(self.cart_page.cart_count).to_have_text(str(expected_count))
-
-            self.logger.info(
-                "Cart count increased from %d to %d.",
-                previous_count,
-                expected_count,
-            )
+            self.logger.info("Cart count increased from %d to %d.", previous_count, expected_count)
 
     def get_cart_count(self) -> int:
         """Get the current count of items in the cart."""
@@ -50,29 +43,26 @@ class CartService:
         if product_name not in PRODUCTS:
             raise ValueError(f"Product '{product_name}' is not defined in Product Catalog.")
 
-    def get_expected_cart_count(self, quantity: int, product: str) -> dict[str, float | Decimal]:
+    def get_expected_cart_details(self, quantity: int, product: str) -> dict[str, float | Decimal]:
         """Calculate the expected cart count after adding a specific quantity of a product."""
         product_price = PRODUCTS[product]
         total_price = product_price * quantity
-        return {"quantity": quantity, "price": product_price, "total": total_price}
+        return {"quantity": quantity, "price": product_price, "subtotal": total_price}
 
     def verify_displayed_subtotal(self, cart_data: dict[str, Any]) -> None:
         """Verify the displayed subtotal for each cart item."""
         for product, details in cart_data.items():
-            expected_subtotal = f"${details['total']:.2f}"
+            expected_subtotal = f"${details['subtotal']:.2f}"
             displayed_product_subtotal = self.cart_page.get_product_subtotal(product)
-
             self.logger.info("Verifying product '%s': expected subtotal=%s", product, expected_subtotal)
-
             expect(displayed_product_subtotal).to_have_text(expected_subtotal)
             self.logger.info("Product '%s' subtotal verified.", product)
 
     def verify_displayed_price(self, cart_data: dict[str, Any]) -> None:
-        """Verify the displayed unit price for each cart item."""
+        """Verify the displayed price for each cart item."""
         for product, details in cart_data.items():
             expected_price = f"${details['price']:.2f}"
             displayed_product_price = self.cart_page.get_product_price(product)
-
             self.logger.info("Verifying product '%s': expected price=%s", product, expected_price)
             expect(displayed_product_price).to_have_text(expected_price)
             self.logger.info("Product '%s' price verified.", product)
@@ -99,6 +89,5 @@ class CartService:
     def get_subtotal_as_value(self, product_name: str) -> Decimal:
         """Get Price Displayed as a value."""
         self.logger.info("Retrieving subtotal for %s and parsing as a Decimal", product_name)
-        subtotal_locator = self.cart_page.get_product_subtotal(product_name)
-        subtotal_text = subtotal_locator.inner_text().strip()
+        subtotal_text = self.cart_page.get_product_subtotal(product_name).inner_text().strip()
         return Decimal(subtotal_text.replace("$", ""))

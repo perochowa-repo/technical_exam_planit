@@ -11,6 +11,6 @@ Feature: Shopping cart price calculations
     And I add "5" pieces of "Fluffy Bunny" to my cart
     And I add "3" pieces of "Valentine Bear" to my cart
     When I navigate to the "Cart" page
-    Then I should see that that the subtotal for each product is calculated correctly
+    Then I should see that the subtotal for each product is calculated correctly
     And I should see that the price for each product is correct
     And I should see that the sum is the total of all subtotals of the products in the cart

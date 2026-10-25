@@ -15,20 +15,19 @@ def add_product_to_cart(service_factory, data_cache: dict[str, Any], quantity: s
     cart_service = service_factory(CartService)
     cart_service.check_product_name(product)
     cart_service.add_product_to_cart(int(quantity), product)
-    data_cache[product] = cart_service.get_expected_cart_count(int(quantity), product)
-    cart_service.logger.info(data_cache)
+    data_cache[product] = cart_service.get_expected_cart_details(int(quantity), product)
 
 
-@then("I should see that that the subtotal for each product is calculated correctly")
+@then("I should see that the subtotal for each product is calculated correctly")
 def verify_subtotal_price(service_factory, data_cache: dict[str, Any]) -> None:
-    """Verify subtotal for each product."""
+    """Verify displayed subtotal in page for each product is correct."""
     cart_service = service_factory(CartService)
     cart_service.verify_displayed_subtotal(data_cache)
 
 
 @then("I should see that the price for each product is correct")
 def verify_product_price(service_factory, data_cache: dict[str, Any]) -> None:
-    """Verify price displayed for each product is correct."""
+    """Verify displayed price in page for each product is correct."""
     cart_service = service_factory(CartService)
     cart_service.verify_displayed_price(data_cache)
 

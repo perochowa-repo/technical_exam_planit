@@ -31,3 +31,13 @@ def service_factory(
 ) -> Generator[ServiceFactory, Any, None]:
     """Provide a ServiceFactory instance for tests."""
     yield ServiceFactory(page, test_logger)
+
+
+def pytest_bdd_apply_tag(tag, function):
+    """Convert the repeat_5 Gherkin tag into a repetition marker."""
+
+    if tag == "repeat_5":
+        pytest.mark.repeat(5)(function)
+        return True
+
+    return None
