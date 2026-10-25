@@ -3,13 +3,11 @@ Feature: Shopping cart price calculations
   I want to verify the prices and totals in my cart
   So that I can ensure my order is calculated correctly
 
-  Background:
-    Given I navigate to the home page
-    When I navigate to the "Shop" page
-
   @cart @regression
   Scenario: Verify product subtotal calculation
-    Given I add "2" pieces of "Stuffed Frog" to my cart
+    Given I navigate to the home page
+    When I navigate to the "Shop" page
+    And I add "2" pieces of "Stuffed Frog" to my cart
     And I add "5" pieces of "Fluffy Bunny" to my cart
     And I add "3" pieces of "Valentine Bear" to my cart
     When I navigate to the "Cart" page

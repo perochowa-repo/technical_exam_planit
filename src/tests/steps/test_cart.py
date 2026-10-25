@@ -2,14 +2,14 @@
 
 from typing import Any
 
-from pytest_bdd import given, parsers, scenarios, then
+from pytest_bdd import parsers, scenarios, then, when
 
 from src.services.cart_service import CartService
 
 scenarios("../features/cart.feature")
 
 
-@given(parsers.parse('I add "{quantity}" pieces of "{product}" to my cart'))
+@when(parsers.parse('I add "{quantity}" pieces of "{product}" to my cart'))
 def add_product_to_cart(service_factory, data_cache: dict[str, Any], quantity: str, product: str) -> None:
     """Add a specific quantity of a product to the cart."""
     cart_service = service_factory(CartService)
