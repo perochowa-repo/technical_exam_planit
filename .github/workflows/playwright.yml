@@ -95,17 +95,17 @@ jobs:
           retention-days: 14
 
       - name: Configure GitHub Pages
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && hashFiles('allure-report/index.html') != ''
         uses: actions/configure-pages@v5
 
       - name: Upload report for GitHub Pages
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && hashFiles('allure-report/index.html') != ''
         uses: actions/upload-pages-artifact@v4
         with:
           path: allure-report/
 
       - name: Deploy Allure report
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master' && hashFiles('allure-report/index.html') != ''
         id: deployment
         uses: actions/deploy-pages@v4
 
