@@ -5,7 +5,7 @@ from typing import Any
 from pytest_bdd import parsers, scenarios, then, when
 
 from src.services.contact_service import ContactService
-from src.util.contact_templates import MANDATORY_CONTACT_FORM
+from src.util.contact_templates import COMPLETE_CONTACT_FORM, MANDATORY_CONTACT_FORM
 from src.util.service_factory import ServiceFactory
 
 scenarios("../features/contact_page.feature")
@@ -25,11 +25,18 @@ def verify_mandatory_field_errors_are_displayed(service_factory: ServiceFactory)
     contact_service.verify_mandatory_field_errors()
 
 
-@when("I populate all mandatory contact fields")
-def populate_mandatory_contact_fields(service_factory: ServiceFactory, data_cache: dict[str, Any]) -> None:
-    """Populate all mandatory contact fields."""
+@when("I populate all mandatory feedback form fields")
+def populate_mandatory_feedback_form_fields(service_factory: ServiceFactory, data_cache: dict[str, Any]) -> None:
+    """Populate all mandatory fields."""
     contact_service = service_factory(ContactService)
     data_cache["forename"] = contact_service.populate_contact_fields(MANDATORY_CONTACT_FORM)
+
+
+@when("I populate all feedback form fields")
+def populate_all_feedback_form_fields(service_factory: ServiceFactory, data_cache: dict[str, Any]) -> None:
+    """Populate all fields."""
+    contact_service = service_factory(ContactService)
+    data_cache["forename"] = contact_service.populate_contact_fields(COMPLETE_CONTACT_FORM)
 
 
 @then("I should see the my feedback has been submitted successfully")
