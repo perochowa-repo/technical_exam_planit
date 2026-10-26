@@ -8,6 +8,23 @@ Python browser automation for the [Jupiter Toys](http://jupiter.cloud.planittest
 - **Contact:** Checks the displayed error messages when an empty or incomplete feedback form is submitted. Submits a feedback form that contains the mandatory fields and repeats the test 5 times to ensure 100% pass rate. 
 - **Shopping cart:** Adds products to the cart. Verifies prices, subtotals, and the total.
 
+## Project layout
+
+```text
+.
+├── conftest.py                     # Shared pytest fixtures and BDD tag handling
+├── pytest.ini                      # Test configuration and base URL
+├── requirements.txt                # Pinned Python dependencies
+└── src/    
+    ├── pages/                      # Page objects
+    ├── services/                   # Page actions and assertions
+    ├── tests/  
+    │   ├── features/               # Gherkin scenarios
+    │   └── steps/                  # pytest-bdd step definitions
+    │       └── common_steps.py/    # Steps shared between tests
+    └── util/                       # Test data, models, and shared helpers
+```
+
 
 `src/tests/features/` - Contains the BDD scenarios 
 
@@ -108,22 +125,6 @@ For Linux only, if browser system libraries are missing, install them with:
 
 ```bash
 python -m playwright install --with-deps chromium
-```
-
-## Project layout
-
-```text
-.
-├── conftest.py                  # Shared pytest fixtures and BDD tag handling
-├── pytest.ini                   # Test configuration and base URL
-├── requirements.txt             # Pinned Python dependencies
-└── src/
-    ├── pages/                   # Page objects
-    ├── services/                # Page actions and assertions
-    ├── tests/
-    │   ├── features/            # Gherkin scenarios
-    │   └── steps/               # pytest-bdd step definitions
-    └── util/                    # Test data, models, and shared helpers
 ```
 
 ## Notes
