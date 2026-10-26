@@ -2,6 +2,9 @@
 
 ALLURE_RESULTS = allure-results
 
+all: 
+	@pytest -v --alluredir=$(ALLURE_RESULTS) --clean-alluredir; status=$$?; allure serve $(ALLURE_RESULTS); exit $$status
+
 smoke:
 	@pytest -m smoke -v --alluredir=$(ALLURE_RESULTS) --clean-alluredir; status=$$?; allure serve $(ALLURE_RESULTS); exit $$status
 
