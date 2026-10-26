@@ -1,9 +1,9 @@
 Feature: Shopping cart price calculations
-  As a customer
+  As a user
   I want to verify the prices and totals in my cart
   So that I can ensure my order is calculated correctly
 
-  @cart @regression
+  @cart @regression @TC-03
   Scenario: Verify product subtotal calculation
     Given I navigate to the home page
     When I navigate to the "Shop" page
